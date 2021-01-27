@@ -7,7 +7,7 @@ import { watch } from 'vue'
 import ModalFactory from '@/components/ModalFactory'
 import { useRoute, useRouter } from 'vue-router'
 import services from '@/services'
-import { setCurrentUser } from '@/store/users'
+import { setCurrentUser } from '@/store/user'
 
 export default {
   components: { ModalFactory },
@@ -17,7 +17,8 @@ export default {
 
     watch(
       () => route.path,
-      async() => {
+      // eslint-disable-next-line space-before-function-paren
+      async () => {
         if (route.meta.hasAuth) {
           const token = window.localStorage.getItem('token')
 
