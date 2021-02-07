@@ -1,11 +1,14 @@
 <template>
   <div class="flex flex-col">
     <h1 class="text-2xl font-regular text-brand-darkgray">Filtros</h1>
+
     <ul class="flex flex-col mt-3 list-none">
       <li
         v-for="filter in state.filters"
         :key="filter.label"
-        :class="{ 'bg-gray-200 bg-opacity-50': filter.active }"
+        :class="{
+          'bg-gray-200 bg-opacity-50': filter.active
+        }"
         @click="() => handleSelect(filter)"
         class="flex items-center justify-between px-4 py-1 rounded cursor-pointer"
       >
@@ -21,8 +24,9 @@
             filter.active ? `text-${filter.color}` : 'text-brand-graydark'
           "
           class="font-bold"
-          >{{ filter.amount }}</span
         >
+          {{ filter.amount }}
+        </span>
       </li>
     </ul>
   </div>
@@ -66,16 +70,11 @@ function applyFiltersStructure(summary) {
 }
 
 export default {
-  async setup(props, { emit }) {
+  async setup(_, { emit }) {
     const store = useStore('Global')
     const state = reactive({
-      filters: [
-        {
-          label: null,
-          amount: null
-        }
-      ],
-      hasError: false
+      hasError: false,
+      filters: [{ label: null, amount: null }]
     })
 
     try {
@@ -95,19 +94,19 @@ export default {
       if (store.isLoading) {
         return
       }
+
       state.filters = state.filters.map((filter) => {
         if (filter.type === type) {
           return { ...filter, active: true }
         }
         return { ...filter, active: false }
       })
-
+      console.log(type)
       emit('select', type)
     }
 
     return {
       state,
-      store,
       handleSelect
     }
   }

@@ -50,7 +50,7 @@
     </div>
 
     <div class="flex justify-end mt-8" v-if="!state.isOpen">
-      <icon name="arrow-down" size="24" :color="brandColors.graydark" />
+      <icon name="chevron-down" size="24" :color="brandColors.graydark" />
     </div>
   </div>
 </template>
