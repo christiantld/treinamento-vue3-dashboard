@@ -1,3 +1,4 @@
+/* eslint-disable space-before-function-paren */
 import Home from '@/views/Home'
 import { routes } from '@/router'
 import { shallowMount } from '@vue/test-utils'
