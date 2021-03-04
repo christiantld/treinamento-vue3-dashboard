@@ -30,11 +30,9 @@
 import useNavigation from '@/hooks/navigation'
 import useStore from '@/hooks/store'
 import { setMessage } from '@/store'
-// import services from '@/services'
+import services from '@/services'
 import { computed, ComputedRef, defineComponent, reactive } from 'vue'
 import Icon from '@/components/Icon/index.vue'
-
-const services = {}
 
 type State = {
   feedback: string
@@ -72,26 +70,26 @@ export default defineComponent({
     async function submitAFeedback(): Promise<void> {
       setMessage(state.feedback)
       state.isLoading = true
-      // try {
-      //   const response = await services.feedbacks.create({
-      //     type: store.feedbackType,
-      //     text: store.message,
-      //     page: store.currentPage,
-      //     apiKey: store.apiKey,
-      //     device: window.navigator.userAgent,
-      //     fingerprint: store.fingerprint
-      //   })
+      try {
+        const response = await services.feedbacks.create({
+          type: store.feedbackType,
+          text: store.message,
+          page: store.currentPage,
+          apiKey: store.apiKey,
+          device: window.navigator.userAgent,
+          fingerprint: store.fingerprint
+        })
 
-      //   if (!response.errors) {
-      //     setSuccessState()
-      //   } else {
-      //     setErrorState()
-      //   }
+        if (!response.errors) {
+          setSuccessState()
+        } else {
+          setErrorState()
+        }
 
-      //   state.isLoading = false
-      // } catch (error) {
-      //   handleError(error)
-      // }
+        state.isLoading = false
+      } catch (error) {
+        handleError(error)
+      }
     }
 
     return { state, submitButtonIsDisabled, submitAFeedback }
