@@ -64,9 +64,9 @@
       >
         <span v-if="state.hasError">Erro ao carregar o script</span>
         <pre v-else>
-&lt;script src="https://christiantld-feedbacker-widget.netlify.app?api_key={{
+&lt;script defer async onload="init('{{
             store.User.currentUser.apiKey.toString()
-          }}"&gt;&lt;/script&gt;</pre
+          }}')" src="https://christiantld-feedbacker-widget.netlify.app/init.js"&gt;&lt;/script&gt;</pre
         >
       </div>
     </div>
@@ -125,6 +125,7 @@ export default {
         await navigator.clipboard.writeText(store.User.currentUser.apiKey)
         toast.success('Copiado!')
       } catch (error) {
+        console.log(error)
         handleError(error)
       }
     }
